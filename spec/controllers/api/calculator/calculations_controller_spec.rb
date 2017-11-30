@@ -13,7 +13,7 @@ module Api
       describe 'POST #create' do
         describe 'when sent the correct authentication header' do
           subject(:returned) { response }
-          let(:calculation_data) { { 'inputs' => {  } } }
+          let(:calculation_data) { { 'inputs' => {} } }
           it { is_expected.to have_http_status(:success) }
 
           describe 'body' do

@@ -68,11 +68,11 @@ gem "paranoia", "~> 2.0"
 
 group :development do
   # speed up local development via livereload
+  gem 'better_errors'
   gem 'guard-livereload'
   gem 'rack-livereload'
   gem 'terminal-notifier-guard'
   gem 'web-console', '~> 2.1'
-  gem 'better_errors'
 end
 
 gem 'nokogiri'

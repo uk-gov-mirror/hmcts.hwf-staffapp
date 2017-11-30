@@ -26,7 +26,7 @@ Rails:
 # Allow long lines in specs, as it's almost impossible to fit RSpec's
 # expectations into 80 characters.
 Metrics/LineLength:
-  Max: 100
+  Max: 120
   Exclude:
     - 'spec/**/*'
 
@@ -44,6 +44,10 @@ Metrics/MethodLength:
     - 'app/models/ability.rb'
     - 'config/initializers/markdown_handler.rb'
 
+# Don't worry about long modules in specs - very common as they are just namespaces
+Metrics/ModuleLength:
+  Exclude:
+    - 'spec/**/*'
 # No need to check for describe class param in support files.
 RSpec/DescribeClass:
   Exclude:

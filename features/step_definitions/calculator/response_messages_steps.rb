@@ -1,5 +1,5 @@
-Then(/^the response should have only messages with keys (.*) and (.*)$/) do |message_key_1, message_key_2|
-  expect(calculator_response.messages.map(&:key)).to eql [message_key_1, message_key_2]
+Then(/^the response should have only messages with keys (.*) and (.*)$/) do |message_key1, message_key2|
+  expect(calculator_response.messages.map(&:key)).to eql [message_key1, message_key2]
   expect(calculator_response.messages.map(&:parameters)).to all(eq(test_request.to_h))
 end
 

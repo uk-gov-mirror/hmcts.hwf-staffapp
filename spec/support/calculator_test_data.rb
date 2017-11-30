@@ -1,4 +1,4 @@
-module CalculatorTestData # rubocop:disable ModuleLength
+module CalculatorTestData
 
   module_function
 

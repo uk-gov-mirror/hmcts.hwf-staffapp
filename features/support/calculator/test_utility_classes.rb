@@ -11,7 +11,10 @@ module Test
         likelyhood = json.dig('calculation', 'result', 'chance_of_getting_help')
         previous_answers = json.dig('calculation', 'result', 'inputs')
         fields_required = json.dig('calculation', 'fields_required')
-        new(messages: messages, likelyhood: likelyhood, previous_answers: previous_answers, fields_required: fields_required)
+        new messages: messages,
+            likelyhood: likelyhood,
+            previous_answers: previous_answers,
+            fields_required: fields_required
       end
 
       def initialize(messages:, likelyhood:, previous_answers:, fields_required:)

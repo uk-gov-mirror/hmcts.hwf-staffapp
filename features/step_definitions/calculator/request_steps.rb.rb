@@ -9,11 +9,10 @@ When(/^I request a calculation$/) do
       result
     end
     self.response = post "/api/calculator/calculation", data.to_json, env
-    tmp = 1
   else
     self.response = RestClient.post "#{calculator_url}/calculation", data.to_json, calculator_api_default_headers
-    if (200.299).include?(response.status)
-      self.calculator_response = ::Test::Calculator::Response.parse JSON.parse(response.body)
-    end
+  end
+  if (200..299).cover?(response.status)
+    self.calculator_response = ::Test::Calculator::Response.parse JSON.parse(response.body)
   end
 end
