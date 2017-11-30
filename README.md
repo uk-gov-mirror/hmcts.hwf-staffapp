@@ -47,7 +47,7 @@ To enable rack_test mode, set the 'USE_RACK_TEST' environment variable to 'true'
 the test suite.
 
 If you need to run the test suite against an external API - set the CALCULATOR_URL environment variable to
-point to http://<yourserver>:<yourport>/calculator
+point to http://<yourserver>:<yourport>/api/calculator
 
 #### Creating initial user
 There is a rake task that takes email, password and role

@@ -1,4 +1,4 @@
-Given(/^I am an api user$/) do
+Given(/^I am a valid api user$/) do
   self.test_request = OpenStruct.new
 end
 

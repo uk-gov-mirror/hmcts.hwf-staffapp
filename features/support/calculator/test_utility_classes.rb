@@ -7,10 +7,10 @@ module Test
       attr_reader :messages, :likelyhood, :previous_answers, :fields_required
       def self.parse(response)
         json = JSON.parse(response.body)
-        messages = json.dig('data', 'results', 'messages').map { |msg| Message.from_json(msg) }
-        likelyhood = json.dig('data', 'results', 'chance_of_getting_help')
-        previous_answers = json.dig('data', 'results', 'inputs')
-        fields_required = json.dig('data', 'fields_required')
+        messages = json.dig('calculation', 'result', 'messages').map { |msg| Message.from_json(msg) }
+        likelyhood = json.dig('calculation', 'result', 'chance_of_getting_help')
+        previous_answers = json.dig('calculation', 'result', 'inputs')
+        fields_required = json.dig('calculation', 'fields_required')
         new(messages: messages, likelyhood: likelyhood, previous_answers: previous_answers, fields_required: fields_required)
       end
 

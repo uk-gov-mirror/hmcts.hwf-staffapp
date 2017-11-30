@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resource :notifications, only: [:edit, :update]
 
   post 'api/submissions' => 'api/submissions#create'
+  post 'api/calculator/calculation' => 'api/calculator/calculations#create'
   get 'reports' => 'reports#index'
   get 'reports/public' => 'reports#public'
   get 'reports/finance_report' => 'reports#finance_report'

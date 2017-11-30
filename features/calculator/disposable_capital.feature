@@ -2,7 +2,7 @@
 Feature: Test for Disposable Capital
 
   Background:
-    Given I am an api user
+    Given I am a valid api user
     And I am single
     And I am under 61 years old
     And fee band is up to and including £1000 with a disposable capital less than £3000
