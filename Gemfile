@@ -72,6 +72,7 @@ group :development do
   gem 'rack-livereload'
   gem 'terminal-notifier-guard'
   gem 'web-console', '~> 2.1'
+  gem 'better_errors'
 end
 
 gem 'nokogiri'
@@ -84,7 +85,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.4'
   gem 'spring'
   # in browser debugging
-  gem 'better_errors'
   gem 'binding_of_caller'
   gem 'climate_control'
   gem 'factory_girl_rails'
