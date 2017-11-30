@@ -12,7 +12,9 @@ def calculator_system_config
 end
 
 def calculator_url
-  ENV.fetch('CALCULATOR_URL')
+  return ENV.fetch('CALCULATOR_URL') if ENV.key('CALCULATOR_URL')
+  server = Capybara.current_session.server
+  "http://#{server.host}:#{server.port}/calculator"
 end
 
 def calculator_api_default_headers

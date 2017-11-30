@@ -1,3 +1,4 @@
+@api
 Feature: Test for Disposable Capital
 
   Background:
