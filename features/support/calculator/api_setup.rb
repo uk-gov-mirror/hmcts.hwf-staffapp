@@ -1,4 +1,4 @@
-Before('@api') do |scenario|
+Before('@api') do |_scenario|
   use_rack_test = ENV.fetch('USE_RACK_TEST', 'false') == 'true'
   if use_rack_test
     Capybara.current_driver = :rack_test
