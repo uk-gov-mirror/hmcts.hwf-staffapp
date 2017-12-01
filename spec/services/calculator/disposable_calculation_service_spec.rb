@@ -6,7 +6,11 @@ module Calculator
 
     end
 
-    describe '#failure?' do
+    describe '#help_not_available?' do
+
+    end
+
+    describe '#help_available?' do
 
     end
 

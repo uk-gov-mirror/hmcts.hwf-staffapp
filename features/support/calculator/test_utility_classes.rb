@@ -6,10 +6,10 @@ module Test
     class Response
       attr_reader :messages, :likelyhood, :previous_answers, :fields_required
       def self.parse(response)
-        json = JSON.parse(response.body)
+        json = JSON.parse(response)
         messages = json.dig('calculation', 'result', 'messages').map { |msg| Message.from_json(msg) }
-        likelyhood = json.dig('calculation', 'result', 'chance_of_getting_help')
-        previous_answers = json.dig('calculation', 'result', 'inputs')
+        likelyhood = chance_of_getting_help(json)
+        previous_answers = json.dig('calculation', 'inputs')
         fields_required = json.dig('calculation', 'fields_required')
         new messages: messages,
             likelyhood: likelyhood,
@@ -29,6 +29,17 @@ module Test
       end
 
       private
+
+      def self.chance_of_getting_help(json)
+        result = json.dig('calculation', 'result')
+        if result['should_get_help']
+          'likely'
+        elsif result ['should_not_get_help']
+          'unlikely'
+        else
+          'unknown'
+        end
+      end
 
       attr_writer :messages, :likelyhood, :previous_answers, :fields_required
     end

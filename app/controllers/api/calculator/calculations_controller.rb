@@ -7,7 +7,8 @@ module Api
       skip_after_action :verify_authorized
 
       def create
-        ::Calculator::CalculationService.call(calculation_params.to_hash)
+        @calculation = ::Calculator::CalculationService.call(calculation_params.to_hash, calculators: [])
+        @fields = {}
       end
 
       private

@@ -10,9 +10,7 @@ When(/^I request a calculation$/) do
     end
     self.response = post "/api/calculator/calculation", data.to_json, env
   else
-    self.response = RestClient.post "#{calculator_url}/calculation", data.to_json, calculator_api_default_headers
-  end
-  if (200..299).cover?(response.status)
-    self.calculator_response = ::Test::Calculator::Response.parse JSON.parse(response.body)
+    rest_response = RestClient.post "#{calculator_url}/calculation", data.to_json, calculator_api_default_headers
+    self.response = OpenStruct.new(body: rest_response.body, status: rest_response.code, headers: rest_response.headers)
   end
 end

@@ -20,7 +20,11 @@ def response
 end
 
 def calculator_response
-  ::Test::Calculator::Response.parse(response)
+  if (200..299).cover?(response.status)
+    ::Test::Calculator::Response.parse(response.body)
+  else
+    raise "Calculator response had an invalid status code of #{response.status}"
+  end
 end
 
 def calculator_system_config

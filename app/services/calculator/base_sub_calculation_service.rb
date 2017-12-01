@@ -12,7 +12,11 @@ module Calculator
       raise 'Not Implemented'
     end
 
-    def failure?
+    def help_not_available?
+      raise 'Not Implemented'
+    end
+
+    def help_available?
       raise 'Not Implemented'
     end
 

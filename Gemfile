@@ -104,6 +104,7 @@ group :test do
   gem 'database_cleaner'
   gem 'faker'
   gem 'launchy'
+  gem 'rspec-json_expectations', '~> 2.1'
   gem 'shoulda-matchers'
   gem 'webmock'
 end
