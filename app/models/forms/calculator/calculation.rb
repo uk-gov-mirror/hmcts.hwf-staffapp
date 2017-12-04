@@ -2,7 +2,9 @@ module Forms
   module Calculator
     class Calculation < ::FormObject
       PERMITTED_ATTRIBUTES = {
-          date_of_birth: Date
+          date_of_birth: Date,
+          fee: Float,
+          total_savings: Float
       }
       def self.permitted_attributes
         PERMITTED_ATTRIBUTES

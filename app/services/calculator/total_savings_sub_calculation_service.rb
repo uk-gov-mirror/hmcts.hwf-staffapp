@@ -15,17 +15,17 @@ module Calculator
     ].freeze
 
     def call
-      dob = inputs['date_of_birth']
+      dob = inputs[:date_of_birth]
       this_years_birthday = dob.dup.tap { |d| d.change year: Date.today.year }
       age = Date.today.year - dob.year
       if Date.today < this_years_birthday
         age -= 1
       end
       fee_band = FEE_TABLE.find do |f|
-        f[:age].cover?(age) && f[:fee].cover?(inputs['fee'])
+        f[:age].cover?(age) && f[:fee].cover?(inputs[:fee])
       end
-      raise "Fee band not found for date_of_birth: #{dob} and fee: #{inputs['fee']}" if fee_band.nil?
-      if inputs['total_savings'] < fee_band[:total_savings]
+      raise "Fee band not found for date_of_birth: #{dob} and fee: #{inputs[:fee]}" if fee_band.nil?
+      if inputs[:total_savings] < fee_band[:total_savings]
         mark_as_help_available
       else
         mark_as_help_not_available
