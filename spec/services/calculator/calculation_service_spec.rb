@@ -122,7 +122,7 @@ module Calculator
         end
 
         it 'calls the disposable calculator' do
-          kls = class_double(Calculator::DisposableCalculationService).as_stubbed_const
+          kls = class_double(Calculator::TotalSavingsSubCalculationService).as_stubbed_const
           fake_calculation = instance_double(::Calculator::BaseSubCalculationService, 'Fake calculation', help_not_available?: false, help_available?: false)
           allow(kls).to receive(:call).with(inputs).and_return fake_calculation
           service.call(inputs)

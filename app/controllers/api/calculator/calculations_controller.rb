@@ -7,14 +7,15 @@ module Api
       skip_after_action :verify_authorized
 
       def create
-        @calculation = ::Calculator::CalculationService.call(calculation_params.to_hash, calculators: [])
+        form = ::Forms::Calculator::Calculation.new(calculation_params.to_hash.fetch('inputs', {}))
+        @calculation = ::Calculator::CalculationService.call(form.to_h)
         @fields = {}
       end
 
       private
 
       def calculation_params
-        params.require(:calculation).permit(:inputs)
+        params.require(:calculation).permit(inputs: [:marital_status, :fee, :date_of_birth, :total_savings, :benefits_received, :number_of_children, :total_income])
       end
     end
   end

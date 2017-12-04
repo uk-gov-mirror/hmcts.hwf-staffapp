@@ -3,6 +3,7 @@ module Calculator
   #
   #
   class CalculationService
+    # @TODO This is now defined in the form object - can anything be shared here ?
     FIELDS = [:marital_status, :fee, :date_of_birth, :total_savings, :benefits_received, :number_of_children, :total_income]
     attr_reader :failure_reasons, :inputs
 
@@ -14,7 +15,7 @@ module Calculator
       self.calculators = calculators
     end
 
-    def self.call(inputs, calculators: [DisposableCalculationService])
+    def self.call(inputs, calculators: [TotalSavingsSubCalculationService])
       new(inputs, calculators: calculators).call
     end
 
