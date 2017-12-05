@@ -9,15 +9,15 @@ module Calculator
       let(:calculator_3_class) { class_spy(::Calculator::BaseSubCalculationService, 'Calculator 3 class') }
 
       let(:calculator_1) do
-        instance_double(::Calculator::BaseSubCalculationService, 'Calculator 1', help_not_available?: false, help_available?: false)
+        instance_double(::Calculator::BaseSubCalculationService, 'Calculator 1', help_not_available?: false, help_available?: false, valid?: true)
       end
 
       let(:calculator_2) do
-        instance_double(::Calculator::BaseSubCalculationService, 'Calculator 2', help_not_available?: false, help_available?: false)
+        instance_double(::Calculator::BaseSubCalculationService, 'Calculator 2', help_not_available?: false, help_available?: false, valid?: true)
       end
 
       let(:calculator_3) do
-        instance_double(::Calculator::BaseSubCalculationService, 'Calculator 3', help_not_available?: false, help_available?: false)
+        instance_double(::Calculator::BaseSubCalculationService, 'Calculator 3', help_not_available?: false, help_available?: false, valid?: true)
       end
 
       let(:calculators) { [calculator_1_class, calculator_2_class, calculator_3_class] }
@@ -111,6 +111,25 @@ module Calculator
             expect(calculators_called).to eql [1, 2, 3]
           end
 
+          it 'does not call the second calculator if the first had invalid inputs' do
+            calculators_called = []
+            allow(calculator_1_class).to receive(:call).with(inputs) do
+              calculators_called << 1
+              allow(calculator_1).to receive(:valid?).and_return false
+              throw :invalid_inputs, calculator_1
+            end
+            allow(calculator_2_class).to receive(:call).with(inputs) do
+              calculators_called << 2
+              calculator_2
+            end
+            allow(calculator_3_class).to receive(:call).with(inputs) do
+              calculators_called << 3
+              calculator_3
+            end
+            service.call(inputs, calculators: calculators)
+            expect(calculators_called).to eql [1]
+
+          end
         end
       end
 
@@ -121,9 +140,9 @@ module Calculator
           }
         end
 
-        it 'calls the disposable calculator' do
+        it 'calls the disposable income calculator' do
           kls = class_double(Calculator::TotalSavingsSubCalculationService).as_stubbed_const
-          fake_calculation = instance_double(::Calculator::BaseSubCalculationService, 'Fake calculation', help_not_available?: false, help_available?: false)
+          fake_calculation = instance_double(::Calculator::BaseSubCalculationService, 'Fake calculation', help_not_available?: false, help_available?: false, valid?: true)
           allow(kls).to receive(:call).with(inputs).and_return fake_calculation
           service.call(inputs)
           expect(kls).to have_received(:call).with(inputs)

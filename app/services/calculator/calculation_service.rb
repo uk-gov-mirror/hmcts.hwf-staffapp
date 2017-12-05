@@ -20,16 +20,25 @@ module Calculator
     end
 
     def call
+      # @TODO Decide what to do here and remove this comment
+      # There are 2 catch blocks here which at present has little value
+      # but, I am planning ahead a little in that invalid inputs might
+      # want to add something to this instance in terms of messages etc..
+      # but unsure right now.
       catch(:abort) do
         calculators.each do |calculator|
-          result = calculator.call(inputs)
-          if result.help_not_available?
-            add_failure(result.failure_reasons)
-            throw(:abort)
+          my_result = catch(:invalid_inputs) do
+            result = calculator.call(inputs)
+            if result.help_not_available?
+              add_failure(result.failure_reasons)
+              throw(:abort)
+            end
+            if result.help_available?
+              add_success
+            end
+            result
           end
-          if result.help_available?
-            add_success
-          end
+          throw :abort, self unless my_result.valid?
         end
       end
       self

@@ -24,6 +24,10 @@ module Calculator
       raise 'Not Implemented'
     end
 
+    def valid?
+      raise 'Not Implemented'
+    end
+
     private
 
     attr_accessor :inputs

@@ -15,6 +15,27 @@ module Calculator
     ].freeze
 
     def call
+      throw :invalid_inputs, self unless valid?
+      process_inputs
+    end
+
+    def help_available?
+      help_available
+    end
+
+    def help_not_available?
+      help_not_available
+    end
+    
+    def valid?
+      inputs[:date_of_birth].is_a?(Date) &&
+          inputs[:fee].is_a?(Numeric) &&
+          inputs[:total_savings].is_a?(Numeric)
+    end
+
+    private
+
+    def process_inputs
       dob = inputs[:date_of_birth]
       this_years_birthday = dob.dup.tap { |d| d.change year: Date.today.year }
       age = Date.today.year - dob.year
@@ -32,16 +53,6 @@ module Calculator
       end
       self
     end
-
-    def help_available?
-      help_available
-    end
-
-    def help_not_available?
-      help_not_available
-    end
-
-    private
 
     def mark_as_help_available
       self.help_available = true
