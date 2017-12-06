@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ResolverCostCalculator, type: :service do
-  subject(:calculator) { described_class.new(source) }
+  subject(:hwf_calculator_engine) { described_class.new(source) }
 
   describe '#cost' do
     subject { calculator.cost }

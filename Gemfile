@@ -76,6 +76,7 @@ group :development do
 end
 
 gem 'nokogiri'
+gem 'hwf_calculator_engine', path: 'vendor/gems/hwf_calculator_engine'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

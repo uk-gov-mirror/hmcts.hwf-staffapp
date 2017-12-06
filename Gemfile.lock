@@ -8,6 +8,12 @@ GIT
       logstash-event (~> 1.2.0)
       request_store
 
+PATH
+  remote: vendor/gems/hwf_calculator_engine
+  specs:
+    hwf_calculator_engine (0.0.1)
+      rails (~> 4.2.9)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -470,6 +476,7 @@ DEPENDENCIES
   guard-livereload
   guard-rspec
   guard-rubocop
+  hwf_calculator_engine!
   jasmine
   jbuilder (~> 2.2)
   jquery-rails
