@@ -1,6 +1,6 @@
 module HwfCalculatorEngine
   module Forms
-    class Calculation < ::FormObject
+    class Calculation < FormObject
       PERMITTED_ATTRIBUTES = {
           date_of_birth: Date,
           fee: Float,

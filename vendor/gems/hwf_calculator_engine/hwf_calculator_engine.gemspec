@@ -18,4 +18,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 4.2.9"
+  s.add_dependency 'virtus', '~> 1.0'
+  s.add_dependency 'jbuilder', '~> 2.7'
+  s.add_dependency 'activerecord', '~> 4.2.9'
 end

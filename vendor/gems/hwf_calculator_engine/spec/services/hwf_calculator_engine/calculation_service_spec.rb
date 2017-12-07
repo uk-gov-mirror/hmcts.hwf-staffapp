@@ -1,23 +1,23 @@
 require 'rails_helper'
-module Calculator
+module HwfCalculatorEngine
   RSpec.describe CalculationService do
     subject(:service) { described_class }
 
     shared_context 'fake calculators' do
-      let(:calculator_1_class) { class_spy(::Calculator::BaseSubCalculationService, 'Calculator 1 class') }
-      let(:calculator_2_class) { class_spy(::Calculator::BaseSubCalculationService, 'Calculator 2 class') }
-      let(:calculator_3_class) { class_spy(::Calculator::BaseSubCalculationService, 'Calculator 3 class') }
+      let(:calculator_1_class) { class_spy(BaseSubCalculationService, 'Calculator 1 class') }
+      let(:calculator_2_class) { class_spy(BaseSubCalculationService, 'Calculator 2 class') }
+      let(:calculator_3_class) { class_spy(BaseSubCalculationService, 'Calculator 3 class') }
 
       let(:calculator_1) do
-        instance_double(::Calculator::BaseSubCalculationService, 'Calculator 1', help_not_available?: false, help_available?: false, valid?: true)
+        instance_double(BaseSubCalculationService, 'Calculator 1', help_not_available?: false, help_available?: false, valid?: true)
       end
 
       let(:calculator_2) do
-        instance_double(::Calculator::BaseSubCalculationService, 'Calculator 2', help_not_available?: false, help_available?: false, valid?: true)
+        instance_double(BaseSubCalculationService, 'Calculator 2', help_not_available?: false, help_available?: false, valid?: true)
       end
 
       let(:calculator_3) do
-        instance_double(::Calculator::BaseSubCalculationService, 'Calculator 3', help_not_available?: false, help_available?: false, valid?: true)
+        instance_double(BaseSubCalculationService, 'Calculator 3', help_not_available?: false, help_available?: false, valid?: true)
       end
 
       let(:calculators) { [calculator_1_class, calculator_2_class, calculator_3_class] }
@@ -141,8 +141,8 @@ module Calculator
         end
 
         it 'calls the disposable income calculator' do
-          kls = class_double(Calculator::TotalSavingsSubCalculationService).as_stubbed_const
-          fake_calculation = instance_double(::Calculator::BaseSubCalculationService, 'Fake calculation', help_not_available?: false, help_available?: false, valid?: true)
+          kls = class_double(TotalSavingsSubCalculationService).as_stubbed_const
+          fake_calculation = instance_double(BaseSubCalculationService, 'Fake calculation', help_not_available?: false, help_available?: false, valid?: true)
           allow(kls).to receive(:call).with(inputs).and_return fake_calculation
           service.call(inputs)
           expect(kls).to have_received(:call).with(inputs)

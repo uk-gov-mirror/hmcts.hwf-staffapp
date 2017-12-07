@@ -1,5 +1,5 @@
-module Forms
-  module Calculator
+module HwfCalculatorEngine
+  module Forms
     RSpec.describe Calculation do
       subject(:calculation) { described_class.new(calculation_data) }
 

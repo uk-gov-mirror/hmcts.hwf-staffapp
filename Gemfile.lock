@@ -12,7 +12,10 @@ PATH
   remote: vendor/gems/hwf_calculator_engine
   specs:
     hwf_calculator_engine (0.0.1)
+      activerecord (~> 4.2.9)
+      jbuilder (~> 2.7)
       rails (~> 4.2.9)
+      virtus (~> 1.0)
 
 GEM
   remote: https://rubygems.org/

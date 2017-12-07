@@ -1,5 +1,5 @@
 require 'rails_helper'
-module Calculator
+module HwfCalculatorEngine
   RSpec.describe TotalSavingsSubCalculationService do
     subject(:service) { described_class }
     describe '#call' do
