@@ -343,7 +343,6 @@ GEM
     rspec-expectations (3.6.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.6.0)
-    rspec-json_expectations (2.1.0)
     rspec-mocks (3.6.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.6.0)
@@ -400,7 +399,7 @@ GEM
       railties (>= 3.1)
       slim (~> 3.0)
     slop (3.6.0)
-    spring (2.0.2)
+    spring (2.0.1)
       activesupport (>= 4.2)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
@@ -498,7 +497,6 @@ DEPENDENCIES
   rails_12factor
   redcarpet
   rest-client
-  rspec-json_expectations (~> 2.1)
   rspec-rails (~> 3.4)
   rubocop
   rubocop-rspec (= 1.10)
@@ -519,4 +517,4 @@ DEPENDENCIES
   will_paginate
 
 BUNDLED WITH
-   1.15.3
+   1.16.0

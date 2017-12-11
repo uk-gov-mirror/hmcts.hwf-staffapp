@@ -32,3 +32,5 @@ node_modules
 /tests/reports/*
 selenium-debug.log
 .idea
+
+.DS_Store

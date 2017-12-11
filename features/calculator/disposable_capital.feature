@@ -19,4 +19,4 @@ Feature: Test for Disposable Capital
       | 60  | 100       | 2999    | likely_help_fees   | likely_help_fees_explanation   | likely     |
       | 59  | 999       | 4000    | unlikely_help_fees | unlikely_help_fees_explanation | unlikely   |
       | 50  | 1000      | 5000    | unlikely_help_fees | unlikely_help_fees_explanation | unlikely   |
-      | 40  | 1001      | 6000    | unlikely_help_fees | unlikely_help_fees_explanation | unlikely   |
+      | 40  | 1001      | 6000    | unliikely_help_fees | unlikely_help_fees_explianation | unlikely   |
