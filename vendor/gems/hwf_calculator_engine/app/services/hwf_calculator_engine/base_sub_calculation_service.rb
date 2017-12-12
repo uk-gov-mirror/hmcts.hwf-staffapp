@@ -1,11 +1,13 @@
 module HwfCalculatorEngine
   class BaseSubCalculationService
+    attr_reader :messages
     def self.call(inputs)
       new(inputs).call
     end
 
     def initialize(inputs)
       self.inputs = inputs
+      self.messages = []
     end
 
     def call
@@ -20,10 +22,6 @@ module HwfCalculatorEngine
       raise 'Not Implemented'
     end
 
-    def failure_reasons
-      raise 'Not Implemented'
-    end
-
     def valid?
       raise 'Not Implemented'
     end
@@ -31,5 +29,6 @@ module HwfCalculatorEngine
     private
 
     attr_accessor :inputs
+    attr_writer :messages
   end
 end

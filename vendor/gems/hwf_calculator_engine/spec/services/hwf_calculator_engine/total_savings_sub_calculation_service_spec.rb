@@ -7,22 +7,27 @@ module HwfCalculatorEngine
         next_to_limit = limit - 1
         context "age: #{age}, fee: #{fee}" do
           it "states help is available when total_savings: 0" do
-            expect(service.call(date_of_birth: (age.years.ago - 1.day).to_date, fee: fee, total_savings: 0)).to have_attributes help_available?: true, help_not_available?: false
+            expect(service.call(date_of_birth: (age.years.ago - 1.day).to_date, fee: fee, total_savings: 0)).to have_attributes help_available?: true, help_not_available?: false, messages: a_collection_including(a_hash_including(key: :likely, source: :total_savings))
           end
+
           it "states help is available when total_savings: 1" do
-            expect(service.call(date_of_birth: (age.years.ago - 1.day).to_date, fee: fee, total_savings: 1)).to have_attributes help_available?: true, help_not_available?: false
+            expect(service.call(date_of_birth: (age.years.ago - 1.day).to_date, fee: fee, total_savings: 1)).to have_attributes help_available?: true, help_not_available?: false, messages: a_collection_including(a_hash_including(key: :likely, source: :total_savings))
           end
+
           it "states help is available when total_savings: #{next_to_limit}" do
-            expect(service.call(date_of_birth: (age.years.ago - 1.day).to_date, fee: fee, total_savings: next_to_limit)).to have_attributes help_available?: true, help_not_available?: false
+            expect(service.call(date_of_birth: (age.years.ago - 1.day).to_date, fee: fee, total_savings: next_to_limit)).to have_attributes help_available?: true, help_not_available?: false, messages: a_collection_including(a_hash_including(key: :likely, source: :total_savings))
           end
+
           it "states help is not available when total_savings: #{limit}" do
-            expect(service.call(date_of_birth: (age.years.ago - 1.day).to_date, fee: fee, total_savings: limit)).to have_attributes help_available?: false, help_not_available?: true
+            expect(service.call(date_of_birth: (age.years.ago - 1.day).to_date, fee: fee, total_savings: limit)).to have_attributes help_available?: false, help_not_available?: true, messages: a_collection_including(a_hash_including(key: :unlikely, source: :total_savings))
           end
+
           it "states help is not available when total_savings: #{limit + 1}" do
-            expect(service.call(date_of_birth: (age.years.ago - 1.day).to_date, fee: fee, total_savings: limit + 1)).to have_attributes help_available?: false, help_not_available?: true
+            expect(service.call(date_of_birth: (age.years.ago - 1.day).to_date, fee: fee, total_savings: limit + 1)).to have_attributes help_available?: false, help_not_available?: true, messages: a_collection_including(a_hash_including(key: :unlikely, source: :total_savings))
           end
+
           it "states help is not available when total_savings: #{limit + 100000}" do
-            expect(service.call(date_of_birth: (age.years.ago - 1.day).to_date, fee: fee, total_savings: limit + 100000)).to have_attributes help_available?: false, help_not_available?: true
+            expect(service.call(date_of_birth: (age.years.ago - 1.day).to_date, fee: fee, total_savings: limit + 100000)).to have_attributes help_available?: false, help_not_available?: true, messages: a_collection_including(a_hash_including(key: :unlikely, source: :total_savings))
           end
         end
       end
@@ -96,7 +101,7 @@ module HwfCalculatorEngine
 
     end
 
-    describe '#failure_reasons' do
+    describe '#messages' do
 
     end
 

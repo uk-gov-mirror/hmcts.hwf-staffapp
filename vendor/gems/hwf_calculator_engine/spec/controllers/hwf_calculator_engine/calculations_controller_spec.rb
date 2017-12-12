@@ -15,7 +15,7 @@ module HwfCalculatorEngine
 
     describe 'POST #create' do
       describe 'when sent the correct authentication header' do
-        let(:calculator_service) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: {}, failure_reasons: [], fields_required: []) }
+        let(:calculator_service) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: {}, messages: [], fields_required: [], required_fields_affecting_likelyhood: []) }
         let(:calculator_form) { instance_double(::HwfCalculatorEngine::Forms::Calculation, to_h: {}) }
         before do
           allow(calculator_service_class).to receive(:call).and_return(calculator_service)

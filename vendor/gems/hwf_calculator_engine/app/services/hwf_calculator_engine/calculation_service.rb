@@ -6,13 +6,13 @@ module HwfCalculatorEngine
     # @TODO This is now defined in the form object - can anything be shared here ?
     FIELDS = [:marital_status, :fee, :date_of_birth, :total_savings, :benefits_received, :number_of_children, :total_income]
     FIELDS_AFFECTING_LIKELYHOOD = [:date_of_birth, :total_savings, :benefits_received, :total_income]
-    attr_reader :failure_reasons, :inputs
+    attr_reader :messages, :inputs
 
     def initialize(inputs, calculators:)
       self.inputs = inputs.freeze
       self.failed = false
       self.help_available = false
-      self.failure_reasons = []
+      self.messages = []
       self.calculators = calculators
     end
 
@@ -31,11 +31,11 @@ module HwfCalculatorEngine
           my_result = catch(:invalid_inputs) do
             result = calculator.call(inputs)
             if result.help_not_available?
-              add_failure(result.failure_reasons)
+              add_failure(result.messages)
               throw(:abort)
             end
             if result.help_available?
-              add_success
+              add_success(result.messages)
             end
             result
           end
@@ -65,14 +65,15 @@ module HwfCalculatorEngine
 
     def add_failure(reasons)
       self.failed = true
-      failure_reasons.concat reasons
+      messages.concat reasons
     end
 
-    def add_success
+    def add_success(success_messages)
       self.help_available = true
+      messages.concat success_messages
     end
 
     attr_accessor :failed, :calculators, :help_available
-    attr_writer :failure_reasons, :inputs
+    attr_writer :messages, :inputs
   end
 end

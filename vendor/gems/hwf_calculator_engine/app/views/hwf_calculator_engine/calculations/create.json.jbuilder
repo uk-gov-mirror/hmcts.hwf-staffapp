@@ -4,8 +4,9 @@ json.calculation do
     json.should_get_help @calculation.help_available?
     json.should_not_get_help @calculation.help_not_available?
     json.messages do
-      json.array! @calculation.failure_reasons do |key|
-        json.key key
+      json.array! @calculation.messages do |message|
+        json.key message[:key]
+        json.source message[:source]
         json.parameters @calculation.inputs
       end
     end

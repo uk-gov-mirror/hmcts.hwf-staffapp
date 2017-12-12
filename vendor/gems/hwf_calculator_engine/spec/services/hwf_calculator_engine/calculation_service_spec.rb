@@ -63,20 +63,20 @@ module HwfCalculatorEngine
         end
 
         context 'help not available' do
-          it 'provides access to failure reasons on failure' do
+          it 'provides access to messages on failure' do
             failure_reasons = [:reason1, :reason2]
             allow(calculator_1).to receive(:help_not_available?).and_return true
-            allow(calculator_1).to receive(:failure_reasons).and_return failure_reasons
+            allow(calculator_1).to receive(:messages).and_return failure_reasons
             allow(calculator_1_class).to receive(:call).with(inputs).and_return(calculator_1)
             allow(calculator_2_class).to receive(:call).with(inputs).and_return(calculator_2)
             allow(calculator_3_class).to receive(:call).with(inputs).and_return(calculator_3)
-            expect(service.call(inputs, calculators: calculators)).to have_attributes help_not_available?: true, failure_reasons: failure_reasons
+            expect(service.call(inputs, calculators: calculators)).to have_attributes help_not_available?: true, messages: failure_reasons
           end
 
           it 'prevents calculator 2 being called if calculator 1 fails' do
             failure_reasons = [:reason1, :reason2]
             allow(calculator_1).to receive(:help_not_available?).and_return true
-            allow(calculator_1).to receive(:failure_reasons).and_return failure_reasons
+            allow(calculator_1).to receive(:messages).and_return failure_reasons
             allow(calculator_1_class).to receive(:call).with(inputs).and_return(calculator_1)
             service.call(inputs, calculators: calculators)
             expect(calculator_2_class).not_to(have_received(:call))
@@ -85,7 +85,7 @@ module HwfCalculatorEngine
           it 'prevents calculator 3 being called if calculator 1 fails' do
             failure_reasons = [:reason1, :reason2]
             allow(calculator_1).to receive(:help_not_available?).and_return true
-            allow(calculator_1).to receive(:failure_reasons).and_return failure_reasons
+            allow(calculator_1).to receive(:messages).and_return failure_reasons
             allow(calculator_1_class).to receive(:call).with(inputs).and_return(calculator_1)
             service.call(inputs, calculators: calculators)
             expect(calculator_3_class).not_to(have_received(:call))
@@ -159,10 +159,22 @@ module HwfCalculatorEngine
       include_context 'fake calculators'
       it 'has help available if calculator 1 says it is available' do
         allow(calculator_1).to receive(:help_available?).and_return true
+        allow(calculator_1).to receive(:messages).and_return []
         allow(calculator_1_class).to receive(:call).with(inputs).and_return(calculator_1)
         allow(calculator_2_class).to receive(:call).with(inputs).and_return(calculator_2)
         allow(calculator_3_class).to receive(:call).with(inputs).and_return(calculator_3)
         expect(service.call(inputs, calculators: calculators)).to have_attributes help_available?: true
+      end
+
+      it 'provides access to messages' do
+        reasons = [:reason1, :reason2]
+        allow(calculator_1).to receive(:help_not_available?).and_return false
+        allow(calculator_1).to receive(:help_available?).and_return true
+        allow(calculator_1).to receive(:messages).and_return reasons
+        allow(calculator_1_class).to receive(:call).with(inputs).and_return(calculator_1)
+        allow(calculator_2_class).to receive(:call).with(inputs).and_return(calculator_2)
+        allow(calculator_3_class).to receive(:call).with(inputs).and_return(calculator_3)
+        expect(service.call(inputs, calculators: calculators)).to have_attributes messages: reasons
       end
     end
 

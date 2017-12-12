@@ -11,7 +11,7 @@ module HwfCalculatorEngine
     end
 
     context 'calculation top level object' do
-      let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: inputs, failure_reasons: [], fields_required: fields_required) }
+      let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: inputs, messages: [], fields_required: fields_required, required_fields_affecting_likelyhood: []) }
 
       it 'is present' do
         json = JSON.parse(rendered)
@@ -25,7 +25,7 @@ module HwfCalculatorEngine
     end
 
     context 'calculation.result object' do
-      let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: inputs, failure_reasons: [], fields_required: fields_required) }
+      let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: inputs, messages: [], fields_required: fields_required, required_fields_affecting_likelyhood: []) }
 
       context 'is present' do
         it 'has a calculation.result object' do
@@ -37,7 +37,7 @@ module HwfCalculatorEngine
 
     context 'calculation.result.should_get_help' do
       context 'when calculation.help_available is false' do
-        let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: inputs, failure_reasons: [], fields_required: fields_required) }
+        let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: inputs, messages: [], fields_required: fields_required, required_fields_affecting_likelyhood: []) }
 
         it 'is false' do
           json = JSON.parse(rendered)
@@ -47,7 +47,7 @@ module HwfCalculatorEngine
 
       context 'when calculation.help_available is true' do
 
-        let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: true, inputs: inputs, failure_reasons: [], fields_required: fields_required) }
+        let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: true, inputs: inputs, messages: [], fields_required: fields_required, required_fields_affecting_likelyhood: []) }
         it 'is true' do
           json = JSON.parse(rendered)
           expect(json.dig('calculation', 'result')).to include_json(should_get_help: true)
@@ -57,7 +57,7 @@ module HwfCalculatorEngine
 
     context 'calculation.result.should_not_get_help' do
       context 'when calculation.help_not_available? is false' do
-        let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: inputs, failure_reasons: [], fields_required: fields_required) }
+        let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: inputs, messages: [], fields_required: fields_required, required_fields_affecting_likelyhood: []) }
 
         it 'is false' do
           json = JSON.parse(rendered)
@@ -66,7 +66,7 @@ module HwfCalculatorEngine
       end
 
       context 'when calculation.help_not_available? is true' do
-        let(:calculation) { instance_double(CalculationService, help_not_available?: true, help_available?: false, inputs: inputs, failure_reasons: [], fields_required: fields_required) }
+        let(:calculation) { instance_double(CalculationService, help_not_available?: true, help_available?: false, inputs: inputs, messages: [], fields_required: fields_required, required_fields_affecting_likelyhood: []) }
 
         it 'is true' do
           json = JSON.parse(rendered)
@@ -76,8 +76,8 @@ module HwfCalculatorEngine
     end
 
     context 'calculation.result.messages' do
-      context 'when calculation.help_not_available? is false and failure_reasons are empty' do
-        let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: inputs, failure_reasons: [], fields_required: fields_required) }
+      context 'when calculation.help_not_available? is false and messages are empty' do
+        let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: inputs, messages: [], fields_required: fields_required, required_fields_affecting_likelyhood: []) }
 
         it 'is an empty array' do
           json = JSON.parse(rendered)
@@ -85,8 +85,8 @@ module HwfCalculatorEngine
         end
       end
 
-      context 'when calculation.help_not_available? is true and failure_reasons are present' do
-        let(:calculation) { instance_double(CalculationService, help_not_available?: true, help_available?: false, inputs: inputs, failure_reasons: [:any_reason, :any_other_reason], fields_required: fields_required) }
+      context 'when calculation.help_not_available? is true and messages are present' do
+        let(:calculation) { instance_double(CalculationService, help_not_available?: true, help_available?: false, inputs: inputs, messages: [{ key: :any_reason, source: :any }, { key: :any_other_reason, source: :any }], fields_required: fields_required, required_fields_affecting_likelyhood: []) }
 
         it 'is a 2 element array' do
           json = JSON.parse(rendered)
@@ -95,15 +95,15 @@ module HwfCalculatorEngine
 
         it 'contains the key and parameters for both messages' do
           json = JSON.parse(rendered)
-          matcher1 = a_hash_including('key' => 'any_reason', 'parameters' => inputs)
-          matcher2 = a_hash_including('key' => 'any_other_reason', 'parameters' => inputs)
+          matcher1 = a_hash_including('key' => 'any_reason', 'parameters' => inputs, 'source' => 'any')
+          matcher2 = a_hash_including('key' => 'any_other_reason', 'parameters' => inputs, 'source' => 'any')
           expect(json.dig('calculation', 'result', 'messages')).to contain_exactly matcher1, matcher2
         end
       end
     end
 
     context 'calculation.fields_required JSON array' do
-      let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: inputs, failure_reasons: [], fields_required: fields_required) }
+      let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: inputs, messages: [], fields_required: fields_required, required_fields_affecting_likelyhood: []) }
 
       it 'is an array' do
         json = JSON.parse(rendered)
@@ -116,8 +116,22 @@ module HwfCalculatorEngine
       end
     end
 
+    context 'calculation.required_fields_affecting_likelyhood JSON array' do
+      let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: inputs, messages: [], fields_required: fields_required, required_fields_affecting_likelyhood: ['field1', 'field2']) }
+
+      it 'is an array' do
+        json = JSON.parse(rendered)
+        expect(json.dig('calculation')).to include_json(required_fields_affecting_likelyhood: an_instance_of(Array))
+      end
+
+      it 'matches the fields_required provided' do
+        json = JSON.parse(rendered)
+        expect(json.dig('calculation', 'required_fields_affecting_likelyhood')).to eql ['field1', 'field2']
+      end
+    end
+
     context 'calculation.fields JSON object' do
-      let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: inputs, failure_reasons: [], fields_required: fields_required) }
+      let(:calculation) { instance_double(CalculationService, help_not_available?: false, help_available?: false, inputs: inputs, messages: [], fields_required: fields_required, required_fields_affecting_likelyhood: []) }
 
       context 'with example fields' do
         let(:fields) do

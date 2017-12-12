@@ -32,7 +32,7 @@ module HwfCalculatorEngine
           inputs[:fee].is_a?(Numeric) &&
           inputs[:total_savings].is_a?(Numeric)
     end
-
+    
     private
 
     def process_inputs
@@ -57,11 +57,13 @@ module HwfCalculatorEngine
     def mark_as_help_available
       self.help_available = true
       self.help_not_available = false
+      messages << { key: :likely, source: :total_savings }
     end
 
     def mark_as_help_not_available
       self.help_not_available = true
       self.help_available = false
+      messages << { key: :unlikely, source: :total_savings }
     end
 
     attr_accessor :help_available, :help_not_available
