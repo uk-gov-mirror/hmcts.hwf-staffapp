@@ -1,16 +1,16 @@
 module HwfCalculatorEngine
   class TotalSavingsSubCalculationService < BaseSubCalculationService
     FEE_TABLE = [
-        { age: 1..61, fee: 1..1000, total_savings: 3000 }.freeze,
-        { age: 1..61, fee: 1001..1335, total_savings: 4000 }.freeze,
-        { age: 1..61, fee: 1336..1665, total_savings: 5000 }.freeze,
-        { age: 1..61, fee: 1666..2000, total_savings: 6000 }.freeze,
-        { age: 1..61, fee: 2001..2330, total_savings: 7000 }.freeze,
-        { age: 1..61, fee: 2331..4000, total_savings: 8000 }.freeze,
-        { age: 1..61, fee: 4001..5000, total_savings: 10000 }.freeze,
-        { age: 1..61, fee: 5001..6000, total_savings: 12000 }.freeze,
-        { age: 1..61, fee: 6001..7000, total_savings: 14000 }.freeze,
-        { age: 1..61, fee: 7001..Float::INFINITY, total_savings: 16000 }.freeze,
+        { age: 1..60, fee: 1..1000, total_savings: 3000 }.freeze,
+        { age: 1..60, fee: 1001..1335, total_savings: 4000 }.freeze,
+        { age: 1..60, fee: 1336..1665, total_savings: 5000 }.freeze,
+        { age: 1..60, fee: 1666..2000, total_savings: 6000 }.freeze,
+        { age: 1..60, fee: 2001..2330, total_savings: 7000 }.freeze,
+        { age: 1..60, fee: 2331..4000, total_savings: 8000 }.freeze,
+        { age: 1..60, fee: 4001..5000, total_savings: 10000 }.freeze,
+        { age: 1..60, fee: 5001..6000, total_savings: 12000 }.freeze,
+        { age: 1..60, fee: 6001..7000, total_savings: 14000 }.freeze,
+        { age: 1..60, fee: 7001..Float::INFINITY, total_savings: 16000 }.freeze,
         { age: 61..200, fee: 1..Float::INFINITY, total_savings: 16000 }.freeze
     ].freeze
 

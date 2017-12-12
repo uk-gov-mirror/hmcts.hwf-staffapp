@@ -31,7 +31,7 @@ module HwfCalculatorEngine
           end
         end
       end
-      [1,60,61].each do |age|
+      [1,60].each do |age|
         context "age: #{age}" do
           include_examples 'savings limited to', age: age, fee: 1, limit: 3000
           include_examples 'savings limited to', age: age, fee: 500, limit: 3000
@@ -72,7 +72,7 @@ module HwfCalculatorEngine
           include_examples 'savings limited to', age: age, fee: 10000, limit: 16000
           include_examples 'savings limited to', age: age, fee: 1000000000000, limit: 16000
         end
-        [62, 99].each do |age|
+        [61, 62, 99].each do |age|
           include_examples 'savings limited to', age: age, fee: 1, limit: 16000
           include_examples 'savings limited to', age: age, fee: 10, limit: 16000
           include_examples 'savings limited to', age: age, fee: 100, limit: 16000
