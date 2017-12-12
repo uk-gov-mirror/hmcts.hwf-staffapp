@@ -33,4 +33,4 @@ node_modules
 selenium-debug.log
 .idea
 
-.DS_Store
+*.DS_Store
