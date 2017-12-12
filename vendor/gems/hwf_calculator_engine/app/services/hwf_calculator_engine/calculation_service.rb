@@ -5,6 +5,7 @@ module HwfCalculatorEngine
   class CalculationService
     # @TODO This is now defined in the form object - can anything be shared here ?
     FIELDS = [:marital_status, :fee, :date_of_birth, :total_savings, :benefits_received, :number_of_children, :total_income]
+    FIELDS_AFFECTING_LIKELYHOOD = [:date_of_birth, :total_savings, :benefits_received, :total_income]
     attr_reader :failure_reasons, :inputs
 
     def initialize(inputs, calculators:)
@@ -54,6 +55,10 @@ module HwfCalculatorEngine
 
     def fields_required
       FIELDS - inputs.keys
+    end
+
+    def required_fields_affecting_likelyhood
+      FIELDS_AFFECTING_LIKELYHOOD - inputs.keys
     end
 
     private

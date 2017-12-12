@@ -189,5 +189,20 @@ module HwfCalculatorEngine
         expect(service.call(inputs, calculators: calculators)).to have_attributes fields_required: [:marital_status, :fee, :date_of_birth, :benefits_received, :number_of_children, :total_income]
       end
     end
+
+    describe '#required_fields_affecting_likelyhood' do
+      let(:inputs) do
+        {
+            total_savings: 1000
+        }
+      end
+      include_context 'fake calculators'
+      it 'returns any fields not provided that will affect the likelyhood and not those that just affect the amount' do
+        allow(calculator_1_class).to receive(:call).with(inputs).and_return(calculator_1)
+        allow(calculator_2_class).to receive(:call).with(inputs).and_return(calculator_2)
+        allow(calculator_3_class).to receive(:call).with(inputs).and_return(calculator_3)
+        expect(service.call(inputs, calculators: calculators)).to have_attributes required_fields_affecting_likelyhood: [:date_of_birth, :benefits_received, :total_income]
+      end
+    end
   end
 end

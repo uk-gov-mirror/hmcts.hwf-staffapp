@@ -13,5 +13,8 @@ json.calculation do
   json.fields_required do
     json.array! @calculation.fields_required
   end
+  json.required_fields_affecting_likelyhood do
+    json.array! @calculation.required_fields_affecting_likelyhood
+  end
   json.fields @fields
 end
