@@ -30,6 +30,7 @@ resources:
   containers:
   - container: my_container
     image: employmenttribunal.azurecr.io/ruby25-nodejs-onbuild:0.2
+    endpoint: 'hmcts-pet'
   - container: postgres
     image: postgres:9.6
     ports:
