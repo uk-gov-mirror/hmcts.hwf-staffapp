@@ -28,8 +28,8 @@ variables:
 
 resources:
   containers:
-  # - container: my_container
-  #   image: ubuntu:16.04
+  - container: my_container
+    image: employmenttribunal.azurecr.io/ruby25-nodejs-onbuild:0.2
   - container: postgres
     image: postgres:9.6
     ports:
@@ -39,8 +39,8 @@ jobs:
   - job: TestApplication
 
     pool:
-      vmImage: 'Ubuntu-16.04'
-    # container: my_container
+      vmImage: 'employmenttribunal.azurecr.io/ruby25-nodejs-onbuild:0.2'
+    container: my_container
 
     services:
       postgres: postgres
