@@ -1,9 +1,9 @@
 {
-  "name": "fr-staffapp",
+  "name": "hwf-staffapp",
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ministryofjustice/fr-staffapp"
+    "url": "https://github.com/hmcts/hwf-staffapp"
   },
   "engines": {
     "node": ">=0.12.x"
@@ -11,10 +11,5 @@
   "scripts": {},
   "engineStrict": true,
   "devDependencies": {
-    "nightwatch": "0.7.9",
-    "phantomjs-prebuilt": "~2.1.1",
-    "require-dir": "^0.1.0",
-    "selenium-server-standalone-jar": "~3.0",
-    "moment": "^2.11.1"
   }
 }
