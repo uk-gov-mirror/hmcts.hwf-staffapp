@@ -39,7 +39,7 @@ jobs:
   - job: TestApplication
 
     pool:
-      vmImage: 'employmenttribunal.azurecr.io/ruby25-nodejs-onbuild:0.2'
+      name: hmcts-pet
     container: my_container
 
     services:
