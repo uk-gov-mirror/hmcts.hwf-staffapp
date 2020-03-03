@@ -96,7 +96,7 @@ RSpec.describe UserPolicy, type: :policy do
         it { is_expected.not_to permit_action(:edit_password) }
         it { is_expected.not_to permit_action(:update_password) }
 
-        ['user', 'manager'].each do |role|
+        ['user', 'manager', 'reader'].each do |role|
           context "when role set to #{role}" do
             let(:subject_user) { build_stubbed(:user, office: office, role: role) }
 
