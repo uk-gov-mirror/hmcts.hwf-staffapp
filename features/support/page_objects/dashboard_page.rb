@@ -4,11 +4,15 @@ class DashboardPage < BasePage
   element :dwp_online_banner, '.dwp-banner-online', text: 'DWP checkerYou can process benefits and income based applications.'
   element :help_with_fees_home, 'a', text: 'Help with fees'
   section :content, '#content' do
+    element :generate_reports, 'h3', text: 'Generate reports'
+    element :view_offices, 'h3', text: 'View offices'
+    element :your_last_applications, 'h3', text: 'Your last applications'
+    element :in_progress_applications, 'h3', text: 'In progress'
+    element :completed_applications, 'h3', text: 'Completed'
     element :alert_title, '.govuk-error-summary__title'
     element :alert_text, '.alert'
     element :look_up_button, 'input[value="Look up"]'
     element :start_now_button, 'input[value="Start now"]', visible: false
-    element :in_progress_header, 'h3', text: 'In progress'
     element :processed_applications, 'a', text: 'Processed applications'
     elements :last_application, '.govuk-table__row'
     element :last_application_link, 'a', text: '1'
@@ -19,6 +23,12 @@ class DashboardPage < BasePage
     element :online_search_reference, '#online_search_reference'
     element :process_when_back_online_heading, 'h3', text: 'Process when DWP is back online'
     element :pending_applications_link, 'a', class: 'dwp-failed-applications', text: 'Pending applications to be processed'
+    element :no_pending_applications_text, 'p', text: 'No pending applications in the list'
+    section :dwp_down_warning, '.dwp-down' do
+      element :paragraph, 'p', text: 'You can only process:'
+      element :bullet1, 'li', text: 'income-based applications'
+      element :bullet2, 'li', text: 'benefits-based applications if the applicant has provided paper evidence'
+    end
   end
 
   def look_up_reference(reference)

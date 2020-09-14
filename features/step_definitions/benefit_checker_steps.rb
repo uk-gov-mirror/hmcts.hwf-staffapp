@@ -12,16 +12,15 @@ Given("I have looked up an online application when the benefit checker is down")
     dwp = instance_double('DwpMonitor', state: 'offline')
     DwpMonitor.stub(:new).and_return dwp
     FactoryBot.create(:online_application, :with_reference, :completed)
-    sign_in_page.load_page
-    sign_in_page.user_account
-    reference = OnlineApplication.last.reference
-    fill_in 'Reference', with: reference
-    click_on 'Look up'
+    sign_in_with_user
+    dashboard_page.look_up_reference(OnlineApplication.last.reference)
   end
 end
 
 Then("I should see a notification telling me that I can only process income-based applications or where the applicant has provided paper evidence") do
-  expect(benefit_checker_page.content.dwp_down_warning).to have_text 'You can only process: income-based applications benefits-based applications if the applicant has provided paper evidence'
+  expect(@dashboard_page.content.dwp_down_warning).to have_paragraph
+  expect(@dashboard_page.content.dwp_down_warning).to have_bullet1
+  expect(@dashboard_page.content.dwp_down_warning).to have_bullet2
 end
 
 When("I start processing a paper application") do
@@ -60,7 +59,7 @@ Then("I should see that the applicant fails on benefits") do
 end
 
 Then("I should see that the online applicant fails on benefits") do
-  expect(process_online_application_page.content).to have_failed_benefits
+  expect(evidence_page.content.evidence_summary[0].summary_row[2]).to have_text 'Benefits ✗ Failed'
 end
 
 Then("I should see that the applicant passes on benefits") do
@@ -74,7 +73,7 @@ Given("the benefit checker is down") do
     sign_in_page.load_page
     sign_in_page.admin_account
   end
-  expect(sign_in_page).to have_welcome_user
+  expect(dashboard_page).to have_welcome_user
 end
 
 Given("I am not logged in and the benefit checker down") do

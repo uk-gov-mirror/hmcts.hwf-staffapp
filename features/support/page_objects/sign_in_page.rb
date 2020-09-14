@@ -4,13 +4,7 @@ class SignInPage < BasePage
 
   set_url '/'
 
-  element :welcome_user, 'span', text: 'Welcome user'
   section :content, '#content' do
-    element :generate_reports, 'h3', text: 'Generate reports'
-    element :view_offices, 'h3', text: 'View offices'
-    element :your_last_applications, 'h3', text: 'Your last applications'
-    element :in_progress_applications, 'h3', text: 'In progress'
-    element :completed_applications, 'h3', text: 'Completed'
     element :user_email, '#user_email'
     element :user_password, '#user_password'
     element :sign_in_title, 'h1', text: 'Sign in'
@@ -68,11 +62,14 @@ class SignInPage < BasePage
 
   def invalid_credentials
     sign_in_with 'invalid.com', 'password'
+    self
   end
 
   def sign_in_with(email, password)
     content.user_email.set email
     content.user_password.set password
     sign_in
+
+    DashboardPage.new
   end
 end

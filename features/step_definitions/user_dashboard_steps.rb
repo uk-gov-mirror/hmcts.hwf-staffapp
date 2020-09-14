@@ -1,5 +1,5 @@
 When("I click on waiting for evidence") do
-  expect(dashboard_page.content).to have_in_progress_header
+  expect(dashboard_page.content).to have_in_progress_applications
   click_link('Waiting for evidence')
 end
 
@@ -8,7 +8,7 @@ Then("I should be taken to evidence checks page") do
 end
 
 When("I click on waiting for part-payment") do
-  expect(dashboard_page.content).to have_in_progress_header
+  expect(dashboard_page.content).to have_in_progress_applications
   click_link('Waiting for part-payments')
 end
 

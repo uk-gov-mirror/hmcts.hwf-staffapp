@@ -19,6 +19,10 @@ class ApplicationDetailsPage < BasePage
     element :fee_blank_error, '.error', text: 'Enter a court or tribunal fee'
     element :form_error_message, '.error', text: 'Enter a valid form number'
     element :invalid_form_number_message, '.error', text: 'You entered the help with fees form number. Enter the number on the court or tribunal form.'
+    sections :group, '.group-level' do
+      elements :input, 'input'
+      elements :jurisdiction, '.govuk-radios__item'
+    end
   end
 
   def go_to_application_details_page
