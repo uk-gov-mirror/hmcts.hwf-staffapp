@@ -173,14 +173,17 @@ Given("a user has processed an application") do
 end
 
 Given("I am signed in as a user from a different office") do
+  expect(page).to have_current_path(%r{/sign_in})
   sign_in_page.user_account
 end
 
 When("I search for the application processed by the different office") do
+  expect(page).to have_current_path('/')
   find_application_page.search_by_hwf_reference
 end
 
 Then("I am told that the application has been processed by another office") do
+  expect(page).to have_current_path(%r{/completed_search})
   find_application_page.content.processed_by_another_office
 end
 
