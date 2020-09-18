@@ -66,6 +66,7 @@ Then("I should be taken to the problem with evidence page") do
 end
 
 When("I submit that the evidence is correct") do
+  expect(evidence_accuracy_page).to have_current_path(%r{/evidence/1/accuracy})
   evidence_accuracy_page.content.correct_evidence.click
   next_page
 end
