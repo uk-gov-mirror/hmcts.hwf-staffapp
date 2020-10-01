@@ -22,15 +22,14 @@ class EvidenceCheckFlaggingService
       end
       evidence_check_flag.save!
     else
-      EvidenceCheckFlag.create(reg_number: registration_number, count: 1) unless @evidence.correct
+      EvidenceCheckFlag.create(reg_number: registration_number, count: 1, active: !@evidence.correct)
     end
   end
 
   private
 
   def evidence_check_flag
-    @evidence_check_flag ||= EvidenceCheckFlag.find_by(reg_number: registration_number,
-                                                       active: true)
+    @evidence_check_flag ||= EvidenceCheckFlag.find_by(reg_number: registration_number)
   end
 
   def registration_number

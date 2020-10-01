@@ -38,16 +38,31 @@ describe EvidenceCheckFlaggingService do
       let(:evidence_check) { create :evidence_check_full_outcome, :completed, application: application }
 
       context 'when a previous flag exists' do
-        let!(:flag) { create :evidence_check_flag, reg_number: applicant.ni_number }
+        let(:flag) { create :evidence_check_flag, reg_number: applicant.ni_number }
 
         it 'deactivates the flag' do
+          flag
           expect { process_flag && flag.reload }.to change { flag.active }.to false
         end
       end
 
+      context 'when a previous flag exists but is not active' do
+        before { create :evidence_check_flag, reg_number: applicant.ni_number, active: false }
+
+        it 'do not create new flag' do
+          process_flag
+          expect(EvidenceCheckFlag.count).to eq 1
+        end
+      end
+
       context 'when there is no flag' do
-        it 'does not create a flag' do
-          expect { process_flag }.not_to change { EvidenceCheckFlag.count }
+        it 'create a flag' do
+          expect { process_flag }.to change { EvidenceCheckFlag.count }.by(1)
+        end
+
+        it 'set flag as inactive' do
+          process_flag
+          expect(EvidenceCheckFlag.last.active?).to be false
         end
       end
     end
@@ -62,18 +77,20 @@ describe EvidenceCheckFlaggingService do
       end
 
       context 'when a previous flag exists for ni number' do
-        let!(:flag) { create :evidence_check_flag, reg_number: applicant.ni_number }
+        let(:flag) { create :evidence_check_flag, reg_number: applicant.ni_number }
 
         it 'increments the count on the existing flag' do
+          flag
           expect { process_flag && flag.reload }.to change { flag.count }.by(1)
         end
       end
 
       context 'when a previous flag exists for ho number' do
         let(:applicant) { create :applicant_with_all_details, ho_number: 'L123456', ni_number: nil }
-        let!(:flag) { create :evidence_check_flag, reg_number: applicant.ho_number }
+        let(:flag) { create :evidence_check_flag, reg_number: applicant.ho_number }
 
         it 'increments the count on the existing flag' do
+          flag
           expect { process_flag && flag.reload }.to change { flag.count }.by(1)
         end
       end
